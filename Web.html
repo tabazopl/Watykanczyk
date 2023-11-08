@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ClickMe Page</title>
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    #click-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      padding: 20px 40px;
+      background-color: #3498db;
+      color: #fff;
+      cursor: pointer;
+    }
+    #bounce-image {
+      position: absolute;
+      animation: bounce 5s infinite;
+      opacity: 0;
+    }
+    @keyframes bounce {
+      0% {
+        top: 0;
+        left: 0;
+      }
+      25% {
+        top: 0;
+        left: 100%;
+      }
+      50% {
+        top: 100%;
+        left: 100%;
+      }
+      75% {
+        top: 100%;
+        left: 0;
+      }
+      100% {
+        top: 0;
+        left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="click-button">Click Me</button>
+  <img id="bounce-image" src="" alt="Bouncing Image">
+  <audio autoplay>
+    <source src="muzyka.mp3" type="audio/mpeg">
+    Twoja przeglądarka nie obsługuje odtwarzacza audio.
+  </audio>
+  <script>
+    document.getElementById("click-button").addEventListener("click", function() {
+      // Pobranie obrazu z GitHuba (Wymaga dostępu do API GitHuba)
+      fetch('https://raw.githubusercontent.com/{nazwa_uzytkownika}/{nazwa_repozytorium}/{sciezka_do_obrazu}')
+        .then(response => response.blob())
+        .then(blob => {
+          const imageUrl = URL.createObjectURL(blob);
+          const image = document.getElementById("bounce-image");
+          image.src = imageUrl;
+          image.style.opacity = 1;
+        });
+      // Rozpoczęcie odtwarzania muzyki
+      const audio = document.querySelector("audio");
+      audio.play();
+    });
+  </script>
+</body>
+</html>
